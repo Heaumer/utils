@@ -32,11 +32,6 @@ struct tsock {
 
 tsock threads[Maxclient];
 
-/*
- * //error management;
- * specify cmd through argv;
- * add retries for accept;
- */
 void *
 servecmd(void *v)
 {
@@ -111,20 +106,8 @@ main(int argc, char *argv[])
 	/* let fork()s end */
 	signal(SIGCHLD, SIG_IGN);
 
-	/*
-	 * all sockets are available
-	 */
-	for (i = 0; i < Maxclient; i++)
-		threads[i].sock = 0;
-
-/*	if (argc > 1) {
-		errno = 0;
-		port = strtol(argv[1], NULL, 10);
-		if (errno != 0) {
-			fprintf(stderr, "invalid port number '%s' : %s\n", argv[1], strerror(errno));
-			return -1;
-		}
-	}*/
+	/* all sockets are available */
+	memset(threads, '\0', sizeof(threads));
 
 	s = socket(AF_INET, SOCK_STREAM, 0);
 	if (s == -1) {
