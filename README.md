@@ -1,7 +1,6 @@
 # Description
 Collection of tiny tools, snippets, etc. You may find
-shell scripts in [cfg](https://github.com/Heaumer/cfg/tree/master/bin).
-
+shell scripts in [cfg/bin](https://github.com/Heaumer/cfg/tree/master/bin).
 Feel free to report anything about those!
 
 # ucol.c
@@ -10,10 +9,12 @@ Format (spaces) input to ouput columns.
 Output to stdout.
 input to stdin by default, single file may be specified.
 
-The 'u' stands for unicode : length calculated according to utf8.
+The 'u' stands for unicode : string length calculated according
+to utf8, by skipping continuation bytes.
 
 # See.c
-Browse directory with left-click in acme (p9p).
+Browse directory with left-click in acme (tested with p9p only):
+more intuitive and avoid opening that much windows.
 
 # serve.c, http.sh, mime-types, client.c
 Starts listening on a given port. For each new connection,
