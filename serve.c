@@ -1,6 +1,6 @@
 /*
  * threads used to wait for the fork (thus avoiding double-fork)
- * cc serve.c -lpthread -o serve && ./serve cat
+ * cc serve.c -lpthread -o s && ./s cat
  */
 #include <errno.h>
 #include <pthread.h>
