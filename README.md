@@ -42,3 +42,21 @@ a browser for http.sh).
 
 # nc.go
 A small netcat-like tool.
+
+# fakerootns.c
+Fakeroot-like using linux namespaces.
+
+	% /fakerootns bash
+	# id
+	uid=0(root) gid=0(root) groups=0(root),65534
+	# cd /tmp
+	#  rm -rf test/
+	# mkdir test
+	# touch test/test
+	# tar czf test.tgz test
+	# tar tzvf test.tgz
+	drwxr-xr-x root/root         0 2014-06-18 19:00 test/
+	-rw-r--r-- root/root         0 2014-06-18 19:00 test/test
+	# exit
+	% id
+	uid=1000(mb) gid=100(users) groups=100(users),...
