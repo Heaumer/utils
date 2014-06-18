@@ -20,7 +20,7 @@ more intuitive and avoid opening that much windows.
 Starts listening on a given port. For each new connection,
 launch a given program and redirects its stdin/stdout to
 the connection socket. Somehow, it mimics Plan9's `aux/listen`
-mechanism.
+mechanism, or some parts of inetd.
 
 Echo server (tcp7 usually):
 
