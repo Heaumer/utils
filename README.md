@@ -43,7 +43,7 @@ a browser for http.sh).
 # nc.go
 A small netcat-like tool.
 
-# fakerootns.c
+# fakerootns.c (idea from nsz, #morpheus)
 Fakeroot-like using linux namespaces.
 
 	% /fakerootns bash
