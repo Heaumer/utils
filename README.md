@@ -63,10 +63,11 @@ Fakeroot-like using linux namespaces.
 
 ## See also fake.c, id.c
 For curiosity, sfake.c contains a syscall hijacking using
-ptrace for linux x86\_84 (cf. id.c). It was a first attempt a fakeroot
-supporting statically linked binary while being simple:
+ptrace for linux x86\_84 (cf. id.c). It was a first attempt to
+have a fakeroot supporting statically linked binary while being simple, alternatives
+being:
 
-* normal fakeroot only use LD\_PRELOAD, thus won't work with statically linked binaries;
+* "standard" fakeroot, only uses LD\_PRELOAD, thus won't work with statically linked binaries;
 * fakeroot-ng uses LD\_PRELOAD and ptrace, but is 5K C++;
 
 Insecurity of namespaces are definitely not a problem here as we're
