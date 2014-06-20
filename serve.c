@@ -17,8 +17,8 @@
 #include <unistd.h>
 
 enum {
-	Port      = 8002,
-	Maxclient = 42,
+	Port      = 8000,
+	Maxclient = 128,
 };
 
 char **cmd;

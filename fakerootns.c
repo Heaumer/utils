@@ -83,5 +83,4 @@ main(int argc, char *argv[])
 	snprintf(mapu, sizeof(mapu)-1, "0 %d 1", getuid());
 
 	return fakeroot(argv+1);
-
 }

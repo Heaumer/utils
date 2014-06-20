@@ -5,7 +5,7 @@ Feel free to report anything about those!
 
 # ucol.c
 Format (spaces) input to ouput columns.
-/-n/ specifies the number of spaces between columns (default: 1).
+*-n* specifies the number of spaces between columns (default: 1).
 Output to stdout.
 input to stdin by default, single file may be specified.
 
@@ -46,7 +46,7 @@ A small netcat-like tool.
 # fakerootns.c (idea from nsz, #morpheus)
 Fakeroot-like using linux namespaces.
 
-	% /fakerootns bash
+	% ./fakerootns bash
 	# id
 	uid=0(root) gid=0(root) groups=0(root),65534
 	# cd /tmp
@@ -60,3 +60,16 @@ Fakeroot-like using linux namespaces.
 	# exit
 	% id
 	uid=1000(mb) gid=100(users) groups=100(users),...
+
+## See also fake.c, id.c
+For curiosity, sfake.c contains a syscall hijacking using
+ptrace for linux x86\_84 (cf. id.c). It was a first attempt a fakeroot
+supporting statically linked binary while being simple:
+
+* normal fakeroot only use LD\_PRELOAD, thus won't work with statically linked binaries;
+* fakeroot-ng uses LD\_PRELOAD and ptrace, but is 5K C++;
+
+Insecurity of namespaces are definitely not a problem here as we're
+not using them to isolate potentially malicious users. Furthermore, it's much
+more efficient than the ptrace solution, while being concise.
+

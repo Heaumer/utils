@@ -1,13 +1,20 @@
+/*
+ * cc client.c -Wall -W
+ */
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <unistd.h>
 
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-
-static int port = 8080;
+enum {
+	Port = 8000,
+};
 
 int
 main(int argc, char *argv[])
@@ -15,14 +22,15 @@ main(int argc, char *argv[])
 	char in[BUFSIZ], out[BUFSIZ];
 	struct sockaddr_in sin;
 	struct hostent *serv;
-	int s;
+	int port, s;
 
-	if (argc < 2) {
-		fprintf(stderr, "%s <server> [port] (default is %d)\n", argv[0], Port);
+	if (argc < 2 || strcmp(argv[1], "-h") == 0) {
+		fprintf(stderr, "%s <server> [port] (default port: %d)\n", argv[0], Port);
 		return -1;
 	}
 
 	port = Port;
+
 	if (argc == 3) {
 		errno = 0;
 		port = strtol(argv[2], NULL, 10);
