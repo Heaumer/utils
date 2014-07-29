@@ -1,5 +1,6 @@
 /*
  * TODO add option for treat at most m < Maxcol column
+ * TODO add option to center/right align columns
  * (eg. for code which have comments at the end)
  * cc ucol.c -o ucol # -W -Wall -Wextra -g
  */
