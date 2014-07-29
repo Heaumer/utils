@@ -74,3 +74,10 @@ Insecurity of namespaces are definitely not a problem here as we're
 not using them to isolate potentially malicious users. Furthermore, it's much
 more efficient than the ptrace solution, while being concise.
 
+# npipe.c
+A combination of serve.c and client.c: for each incoming connexion on a given
+port, traffic is forwarded to a distant server:port.
+
+Note that if upper protocol uses TCP/IP data (eg. 'Host:' of HTTP header),
+it won't be changed.
+

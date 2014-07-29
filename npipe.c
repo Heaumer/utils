@@ -1,3 +1,7 @@
+/*
+ * TODO add an option to insert a shell command
+ * between the two sockets
+ */
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <netinet/in.h>
