@@ -124,6 +124,9 @@ Switch to either bepo/us keymap (X11)
 ### dual
 Dual screen via xrandr.
 
+### dwm\_status
+Set dwm status (battery percentage, date).
+
 ## mardown
 Markdown perl script imported.
 

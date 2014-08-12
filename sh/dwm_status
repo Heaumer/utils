@@ -1,0 +1,12 @@
+#!/bin/sh
+
+while sleep 1; do
+	bd=/proc/acpi/battery/BAT0/
+	p=`awk '
+	/remaining capacity:/ { cur=$(NF-1); }
+	/design capacity:/    {	max=$(NF-1); }
+	END                   { print cur*100/max"%"; }' $bd/info $bd/state`
+	d=`date`
+
+	xsetroot -name "$p | $d"
+done &
