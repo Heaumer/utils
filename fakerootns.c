@@ -65,7 +65,8 @@ fakeroot(char *argv[])
 		return -1;
 	}
 
-	return waitpid(pid, NULL, 0);
+	waitpid(pid, NULL, 0);
+	return 0;
 }
 
 int
