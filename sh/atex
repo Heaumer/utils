@@ -1,0 +1,37 @@
+#!/home/mb/plan9/bin/rc
+
+. $PLAN9/lib/acme.rc
+nl='
+'
+
+tmp=/tmp/autotex.$pid
+
+fn retex {
+	9p read acme/$winid/body >$tmp.tex
+	cd `{dirname $tmp}; mktex $tmp.tex
+	# XXX use xdotool to send 'r' (reload) to the
+	# xpdf window.
+}
+
+fn event {
+	switch($1$2){
+	case KI
+		if(~ $9 $nl)
+			retex
+	case KD MD MI
+		retex
+ 	}
+	switch($1$2){
+		case Mx MX Ml ML
+		winwriteevent $*
+	}
+}
+
+if(! winread tag | 9 grep -s Put)
+	echo -n ' Put' | winwrite tag
+retex
+wineventloop &
+xpdf $tmp.pdf
+kill $apid
+killall 9p  # BUG
+rm $tmp.*

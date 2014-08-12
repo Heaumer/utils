@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for i in `9p ls acme/ | grep '[0-9]'`; do
+	9p read acme/$i/tag |grep "$PWD/\+Errors" && \
+		echo -n delete | 9p write acme/$i/ctl && exit 0
+done
+exit 1

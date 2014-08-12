@@ -1,0 +1,36 @@
+#!/home/mb/plan9/bin/rc
+
+. $PLAN9/lib/acme.rc
+nl='
+'
+
+tmp=/tmp/autoroff.$pid
+
+fn reroff {
+	9p read acme/$winid/body >$tmp.tr
+	{ 9 tbl $tmp.tr | 9 troff -ms | tr2post >$tmp.ps_
+		&& mv $tmp.ps_ $tmp.ps } >[2]/dev/null
+}
+
+fn event {
+	switch($1$2){
+	case KI
+		if(~ $9 $nl)
+			reroff
+	case KD MD MI
+		reroff
+ 	}
+	switch($1$2){
+		case Mx MX Ml ML
+		winwriteevent $*
+	}
+}
+
+if(! winread tag | 9 grep -s Put)
+	echo -n ' Put' | winwrite tag
+reroff
+wineventloop &
+psv --watch $tmp.ps
+kill $apid
+killall 9p  # BUG
+rm $tmp.*

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo -n Edit ,d | 9p write acme/$winid/body
+echo -n /Edit ,d/ | 9p write acme/$winid/addr
+echo -n 'dot=addr' | 9p write acme/$winid/ctl
+9p read acme/$winid/addr | awk '{printf("MX%s %s\n", $1, $2)}' | 9p write acme/$winid/event

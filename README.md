@@ -81,3 +81,60 @@ port, traffic is forwarded to a distant server:port.
 Note that if upper protocol uses TCP/IP data (eg. 'Host:' of HTTP header),
 it won't be changed.
 
+# Shell scripts (sh/)
+## Acme/Text edition related
+### acme
+Acme wrapper, setting autoindent (-a), font and load dump file (-l).
+
+### +/-
+Indent/Unindent (sed, tabulation).
+
+### cls
+Clean current win window
+
+### put/putall
+Put current window; putall put'em'all.
+
+### closerr
+Close error window.
+
+### b
+Use like this:
+
+  < b foo
+
+To generate
+
+  \begin{foo}
+  \end{foo}
+
+### mktex
+Create pdf file from tex, compiling three time for TOC, references.
+
+### atex/atroff
+Automatic tex/troff from current window.
+
+### l+/l-
+Comment/Uncomment latex.
+
+## X11
+### bepo/us
+Switch to either bepo/us keymap (X11)
+
+### dual
+Dual screen via xrandr.
+
+## mardown
+Markdown perl script imported.
+
+## Others
+### htmlindex
+Create an html index of a directory.
+
+### xmlind
+Indent xml files (xslt).
+
+### imp
+Import (imagemagick) an image, upload it an open a firefox
+on the given URL.
+

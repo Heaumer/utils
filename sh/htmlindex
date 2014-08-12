@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# usage: htmlindex [directory]
+# generate index.html in directory for every file and subfile.
+
+DIR=.; [ "$1" != "" ] && DIR=$1
+
+cd $DIR
+
+(
+	echo '<html><ul>'
+	du -a | sed '$d' | awk '{$1="";print}' | while read f; do
+		echo '<li><a href="'$f'">'$f'</a></li>'
+	done
+	echo '</ul></html>'
+) > index.html

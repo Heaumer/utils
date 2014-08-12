@@ -1,0 +1,5 @@
+#!/home/mb/plan9/bin/rc
+
+. $PLAN9/lib/acme.rc
+
+winctl put

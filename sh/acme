@@ -1,0 +1,3 @@
+#!/bin/sh
+
+9 acme -a -l $HOME/acme.dump -f $PLAN9/font/lucm/unicode.9.font

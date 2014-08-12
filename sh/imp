@@ -1,0 +1,7 @@
+#!/bin/sh
+# avoid confusion with p9p's import and
+# automatically upload file and start
+# firefox on it.
+
+/usr/bin/import /tmp/$1 && \
+	plumb `curl -F'file=@'/tmp/$1 http://i.srsfckn.biz`

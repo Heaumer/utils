@@ -1,0 +1,7 @@
+#!/home/mb/plan9/bin/rc
+
+. $PLAN9/lib/acme.rc
+
+for (winid in `{ 9p ls acme | grep '[0-9]' }) {
+	winread tag | awk '$1 !~ /.*[+-][A-Za-z]+$/{exit 0}{exit 1}' && winctl put
+}
