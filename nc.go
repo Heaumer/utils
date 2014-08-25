@@ -1,3 +1,5 @@
+// XXX also see https://github.com/rminnich/u-root/blob/master/src/netcat/netcat.go
+// (io.Copy mainly)
 package main
 
 import (
