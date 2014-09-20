@@ -16,6 +16,10 @@ to utf8, by skipping continuation bytes.
 Browse directory with left-click in acme (tested with p9p only):
 more intuitive and avoid opening that much windows.
 
+The `-n` flag opens a windows, where files opened from See's
+window will be displayed. This reduce windows pollution, and
+is especially nice to use acme on a small screen.
+
 # serve.c, http.sh, mime-types, client.c
 Starts listening on a given port. For each new connection,
 launch a given program and redirects its stdin/stdout to
@@ -114,8 +118,8 @@ Create pdf file from tex, compiling three time for TOC, references.
 ### atex/atroff
 Automatic tex/troff from current window.
 
-### l+/l-
-Comment/Uncomment latex.
+### c+/c-
+Comment/Uncomment. Cryptic arguments to keep commands shorts.
 
 ## X11
 ### bepo/us
@@ -133,6 +137,9 @@ Markdown perl script imported.
 ## Others
 ### htmlindex
 Create an html index of a directory.
+
+### unhmtml
+Try to remove what seems to be HTML tags.
 
 ### xmlind
 Indent xml files (xslt).
