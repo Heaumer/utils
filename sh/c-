@@ -1,0 +1,12 @@
+#!/bin/sh
+
+case "$1" in
+"a"|"b")
+	sed '1d;$d'
+	;;
+"c"|"d"|"e")
+	sed 's/^[^ ]\+ //g'
+	;;
+*)
+	sed '1d;$d;s/^ \* //g'
+esac
