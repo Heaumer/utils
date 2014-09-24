@@ -78,6 +78,9 @@ main(int argc, char *argv[])
 	socklen_t clen;
 	int port;	
 	int s, c;
+#if DBG
+	int on;
+#endif
 	int i;
 
 	port = Port;
@@ -95,9 +98,8 @@ main(int argc, char *argv[])
 				return help(argv[0]);
 		} else if (strcmp(argv[i], "-h") == 0)
 			return help(argv[0]);
-		else {
+		else if (cmd == NULL)
 			cmd = argv+i;
-		}
 	}
 
 	if (cmd == NULL || cmd[0] == NULL)
@@ -114,6 +116,10 @@ main(int argc, char *argv[])
 		perror("socket()");
 		return -1;
 	}
+
+#if DBG
+	on = 1; setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+#endif
 
 	memset(&sin, '\0', sizeof(sin));
 
