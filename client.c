@@ -65,11 +65,11 @@ main(int argc, char *argv[])
 	if (fork() == 0) {
 		for (;;) {
 			memset(out, '\0', sizeof(out));
-			if (read(s, out, sizeof(out)) < 0)
+			if (read(s, out, sizeof(out)) <= 0)
 				break;
 			printf("%s", out);
 		}
-		return 0;
+		exit(0);
 	}
 
 	for (;;) {
