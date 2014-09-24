@@ -98,8 +98,10 @@ main(int argc, char *argv[])
 				return help(argv[0]);
 		} else if (strcmp(argv[i], "-h") == 0)
 			return help(argv[0]);
-		else if (cmd == NULL)
+		else if (cmd == NULL) {
 			cmd = argv+i;
+			break;
+		}
 	}
 
 	if (cmd == NULL || cmd[0] == NULL)
