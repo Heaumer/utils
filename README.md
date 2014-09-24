@@ -88,6 +88,18 @@ port, traffic is forwarded to a distant server:port.
 Note that if upper protocol uses TCP/IP data (eg. 'Host:' of HTTP header),
 it won't be changed.
 
+This is similar to a:
+
+	% ./serve -p port nc server otherport
+
+Eg.
+
+	(b)% ./serve -p 8080 ./client awesom.eu 80
+	(a)% echo 'GET /' | nc b 8080
+	<DOCTYPE>
+	...
+	^C
+
 # lockf.c
 Similar to procmail's lockfile, except it doesn't wait for lock file to
 be available but return with exit status 1 it file can't be created, return
