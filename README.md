@@ -90,7 +90,8 @@ it won't be changed.
 
 # lockf.c
 Similar to procmail's lockfile, except it doesn't wait for lock file to
-be available but return with exit status 1 it file can't be created.
+be available but return with exit status 1 it file can't be created, return
+0 otherwise. Used to create lock in shell.
 
 Use `-f` to use mkfifo(3) rather than open(2).
 
