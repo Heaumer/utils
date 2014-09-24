@@ -1,6 +1,5 @@
 # Description
-Collection of tiny tools, snippets, etc. You may find
-shell scripts in [cfg/bin](https://github.com/Heaumer/cfg/tree/master/bin).
+Collection of tiny tools, snippets, etc.
 Feel free to report anything about those!
 
 # ucol.c, ucol.awk
