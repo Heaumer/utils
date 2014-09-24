@@ -3,14 +3,17 @@ Collection of tiny tools, snippets, etc. You may find
 shell scripts in [cfg/bin](https://github.com/Heaumer/cfg/tree/master/bin).
 Feel free to report anything about those!
 
-# ucol.c
+# ucol.c, ucol.awk
 Format (spaces) input to ouput columns.
-*-n* specifies the number of spaces between columns (default: 1).
-Output to stdout.
-input to stdin by default, single file may be specified.
+`-n` specifies the number of spaces between columns (default: 1).
+Output to stdout; input to stdin by default, single file may be specified.
 
 The 'u' stands for unicode : string length calculated according
 to utf8, by skipping continuation bytes.
+
+The ucol.awk is an awk version, shorter but slower. Use `-v 'n=2'`
+instead of `-n 2`. Unicode support depends on awk'length();
+eg. works with gawk, but not BSD's awk nor plan9's awk.
 
 # See.c
 Browse directory with left-click in acme (tested with p9p only):
