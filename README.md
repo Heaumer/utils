@@ -31,15 +31,15 @@ mechanism, or some parts of inetd.
 
 Echo server (tcp7 usually):
 
-	% ./s 7007 cat
+	% ./serve 7007 cat
 
 Rsh-like:
 
-	% ./s 22022 sh
+	% ./serve 22022 sh
 
-See http.sh for a sample read-only httpd: (using mime-types)
+See http.sh for a sample read-only httpd: (using mime-types and httproot)
 
-	% ./s 8080 http.sh
+	% ./serve 8080 http.sh
 
 Finally client.c opens a connection to a remote server
 and redirect stdin/stdout to the connection socket.
@@ -92,13 +92,18 @@ This is similar to a:
 
 	% ./serve -p port nc server otherport
 
-Eg.
+So a bit useless given serve.c/client.c
+Raw HTTP proxy:
 
+	# ./npipe 8080 awesom.eu 80
 	(b)% ./serve -p 8080 ./client awesom.eu 80
-	(a)% echo 'GET /' | nc b 8080
-	<DOCTYPE>
-	...
-	^C
+	(a)% echo 'GET /' | nc b 8080 | sed 1q
+	<!DOCTYPE html>
+
+# broadcast.c
+Broadcast incoming data on given named pipe to every TCP-connected
+clients. Use `-p port` to specify listening port. Named pipe may
+be specified as argument, default is `/tmp/broadcast-unix`.
 
 # lockf.c
 Similar to procmail's lockfile, except it doesn't wait for lock file to
