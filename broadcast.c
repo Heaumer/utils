@@ -41,15 +41,14 @@ acceptloop(void *a)
 			return a;
 		}
 		pthread_mutex_lock(&mclients);
-		if (nclients >= Maxclients) {
+		if (nclients >= Maxclients)
 			write(c, "no room.\n", 9), close(c);
-			continue;
-		}
-		for (i = 0; i < Maxclients; i++)
-			if (clients[i] == 0) {
-				clients[i] = c, nclients++;
-				break;
-			}
+		else
+			for (i = 0; i < Maxclients; i++)
+				if (clients[i] == 0) {
+					clients[i] = c, nclients++;
+					break;
+				}
 		pthread_mutex_unlock(&mclients);
 	}
 
