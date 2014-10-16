@@ -66,7 +66,7 @@ readunix(char *path, char buf[], int n)
 	int r;
 
 	if (fd == -1) {
-		fd = open(path, O_RDONLY, EWOULDBLOCK);
+		fd = open(path, O_RDONLY, O_NONBLOCK);
 		if (fd == -1) {
 			perror(path);
 			return -1;
