@@ -91,7 +91,8 @@ This is similar to a:
 
 	% ./serve -p port nc server otherport
 
-So a bit useless given serve.c/client.c
+So a bit useless given serve.c/client.c.
+
 Raw HTTP proxy:
 
 	# ./npipe 8080 awesom.eu 80

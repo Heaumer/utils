@@ -1,0 +1,4 @@
+#!/bin/sh
+
+[ `wc -l $1 | awk '{print $1}'` -le `tput lines` ] && PAGER=cat
+$PAGER $1
