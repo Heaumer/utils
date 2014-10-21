@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Example:
+# for f in *.c; do
+# 	echo '/*' $f '*/'
+# 	cproto $f
+#	echo
+# done > fns.h
+
+sed -n '
+/^[a-z0-9]*(/ {
+	# previous line (type) is in hold buffer.
+
+	# append pattern space to hold buffer
+	#   type\nfoo(...
+	#   type *\nfoo(...
+	H
+
+	# Swap pattern space and hold buffer
+	# (could have been g)
+	x
+
+	# Subsitute first \n
+	#   type foo(...
+	#   type *foo(...
+	/*\n/ s/\n//
+	/*\n/ !s/\n/ /
+
+	# remove trailing { if any
+	s/{$//
+
+	# print
+	p
+}
+# set hold buffer to current line
+h' $* 
