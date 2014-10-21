@@ -127,10 +127,8 @@ readevent(Event *e)
 			}
 			threadexitsall(nil);
 		}
-		winwriteevent(win, e);
 	}
-	else
-		winwriteevent(win, e);
+	winwriteevent(win, e);
 }
 
 void
@@ -140,6 +138,7 @@ threadmain(int argc, char *argv[])
 
 	/* cd requires win to be initialized first */
 	win = newwin();
+	fwin = nil;
 
 	ARGBEGIN {
 	case 'n':
