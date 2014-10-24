@@ -29,6 +29,10 @@ sed -n '
 	# remove trailing { if any
 	s/{$//
 
+	# append final ;
+	#   type foo(...;
+	s/$/;/
+
 	# print
 	p
 }
