@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sed '/ line [0-9]*/ s/ line /:/g'
+
