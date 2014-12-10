@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+
+while(chomp(my $l = <STDIN>)) {
+	my $n = length($l);
+	print '# '; print '-' x ($n); print "\n";
+	print "# $l\n";
+	print '# '; print '-' x ($n); print "\n";
+}
