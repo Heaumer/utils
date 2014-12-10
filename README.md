@@ -148,6 +148,9 @@ Automatic tex/troff from current window.
 ### c+/c-
 Comment/Uncomment. Cryptic arguments to keep commands shorts.
 
+### lw
+Output a sorted list of all files open within acme.
+
 ## X11
 ### bepo/us
 Switch to either bepo/us keymap (X11)

@@ -1,0 +1,2 @@
+#!/bin/sh
+for i in `9p ls acme | grep '[0-9]'`; do 9p read acme/$i/tag | awk '{ print $1;exit }';done | sort
