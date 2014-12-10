@@ -151,6 +151,11 @@ Comment/Uncomment. Cryptic arguments to keep commands shorts.
 ### lw
 Output a sorted list of all files open within acme.
 
+### lwd
+Outputs command to be execute on lw outputs matching a pattern.
+eg. `lwd foo delete` will outputs `echo -n delete | 9p write acme/<n>/ctl`
+for each windows id matching `foo`.
+
 ## X11
 ### bepo/us
 Switch to either bepo/us keymap (X11)
