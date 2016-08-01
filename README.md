@@ -7,12 +7,18 @@ Format (spaces) input to ouput columns.
 `-n` specifies the number of spaces between columns (default: 1).
 Output to stdout; input to stdin by default, single file may be specified.
 
+`-m` specifies the maximum number of columns to consider.
+
+`-k` will keep indentation, ie. spaces at beginning of line.
+
 The 'u' stands for unicode : string length calculated according
 to utf8, by skipping continuation bytes.
 
 The ucol.awk is an awk version, shorter but slower. Use `-v 'n=2'`
 instead of `-n 2`. Unicode support depends on awk'length();
 eg. works with gawk, but not BSD's awk nor plan9's awk.
+
+It does not implement `-m` nor `-k`.
 
 # See.c
 Browse directory with left-click in acme (tested with p9p only):
