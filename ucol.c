@@ -1,5 +1,4 @@
 /*
- * TODO add option for treat at most m < Maxcol column
  * TODO add option to center/right align columns
  * (eg. for code which have comments at the end)
  * cc ucol.c -o ucol # -W -Wall -Wextra -g
@@ -21,10 +20,14 @@ enum {
     Maxcol = 128    /* supplementary columns are discarded */
 };
 
-static int colsize[Maxcol];
-static int ncol;
+int colsize[Maxcol];
+int ncol;
 
-static int nspace = 1;
+/* Number of spaces between each column */
+int nspace =  1;
+
+/* By default, use maximum number of columns available */
+int maxcol = Maxcol;
 
 /* strlen() skipping utf8 continuation prefix */
 int
@@ -88,8 +91,11 @@ fmtcols(char *line)
 
     for (p = strtok(line, SEP); p != NULL; p = strtok(NULL, SEP)) {
         fputs(p, stdout);
+        /* having reached maxcol, only print a single space */
+        if (n >= maxcol)
+            putchar(' ');
         /* don't output unecessary spaces for last column */
-        if (n+1 < ncol)
+        else if (n+1 < ncol)
             pspace(colsize[n++]-wordlen(p)+nspace);
     }
 
@@ -97,10 +103,10 @@ fmtcols(char *line)
 }
 
 int
-help(char *argv0)
+help(char *argv0, int c)
 {
-    fprintf(stderr, "%s [-n nspace] [file]\n", argv0);
-    return 1;
+    fprintf(stderr, "%s [-n nspace] [-m maxcol] [file]\n", argv0);
+    return c;
 }
 
 int
@@ -116,14 +122,26 @@ main(int argc, char *argv[])
     for (i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-n") == 0) {
             if (i+1 >= argc)
-                return help(argv[0]);
+                return help(argv[0], 1);
             i++;
             errno = 0;
             nspace = (int)strtol(argv[i], NULL, 10);
-            if (errno != 0)
-                return help(argv[0]);
+            if (errno != 0) {
+                perror("nspace");
+                return help(argv[0], 1);
+            }
+        } else if (strcmp(argv[i], "-m") == 0) {
+            if (i+1 >= argc)
+                return help(argv[0], 1);
+            i++;
+            errno = 0;
+            maxcol = (int)strtol(argv[i], NULL, 10);
+            if (errno != 0) {
+                perror("maxcol");
+                return help(argv[0], 1);
+            }
         } else if (strcmp(argv[i], "-h") == 0)
-            return help(argv[0]);
+            return help(argv[0], 0);
         else {
             in = fopen(argv[i], "r");
             if (in == NULL) {
