@@ -3,6 +3,7 @@
  * (eg. for code which have comments at the end)
  * cc ucol.c -o ucol # -W -Wall -Wextra -g
  */
+#include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,9 +13,6 @@
 #include <unistd.h>
 
 #define SEP " \t\n"
-
-/* keep indentation; nice for code, but can |ucol|+ so.. */
-#define KEEPINDENT 0
 
 enum {
     Maxcol = 128    /* supplementary columns are discarded */
@@ -28,6 +26,9 @@ int nspace =  1;
 
 /* By default, use maximum number of columns available */
 int maxcol = Maxcol;
+
+/* Should we keep indentation? */
+int keepindent = 0;
 
 /* strlen() skipping utf8 continuation prefix */
 int
@@ -55,10 +56,9 @@ countcols(char *line)
 
     n = 0;
 
-#if KEEPINDENT
-    while(isspace(*line))
-        line++;
-#endif
+    if (keepindent)
+        while(isspace(*line))
+            line++;
 
     for (p = strtok(line, SEP); p != NULL && n < Maxcol; p = strtok(NULL, SEP)) {
         if(wordlen(p) > colsize[n])
@@ -84,10 +84,9 @@ fmtcols(char *line)
 
     n = 0;
 
-#if KEEPINDENT
-    while(isspace(*line))
-        putchar(*line++);
-#endif
+    if (keepindent)
+        while(isspace(*line))
+            putchar(*line++);
 
     for (p = strtok(line, SEP); p != NULL; p = strtok(NULL, SEP)) {
         fputs(p, stdout);
@@ -105,7 +104,7 @@ fmtcols(char *line)
 int
 help(char *argv0, int c)
 {
-    fprintf(stderr, "%s [-n nspace] [-m maxcol] [file]\n", argv0);
+    fprintf(stderr, "%s [-n nspace] [-m maxcol] [-k] [file]\n", argv0);
     return c;
 }
 
@@ -140,7 +139,9 @@ main(int argc, char *argv[])
                 perror("maxcol");
                 return help(argv[0], 1);
             }
-        } else if (strcmp(argv[i], "-h") == 0)
+        } else if (strcmp(argv[i], "-k") == 0)
+            keepindent = 1;
+        else if (strcmp(argv[i], "-h") == 0)
             return help(argv[0], 0);
         else {
             in = fopen(argv[i], "r");
