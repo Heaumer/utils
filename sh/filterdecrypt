@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+
+# Decrypt a file encrypted through Filter::Crypto (debugging purposes), when
+# crypt_file hasn't been installed.
+#
+# Assuming correct encrypted key is locally installed.
+# TODO:
+#   use perltidy if provided, or at least clean things a bit with sed (s/;/;\n/)
+
+use strict;
+use warnings;
+
+use Filter::Crypto::CryptFile qw(:DEFAULT $ErrStr);
+
+# Work on either STDIN or a filename given as first argument.
+my $fh = *STDIN;
+if (@ARGV) { open($fh, "<", $ARGV[0]) or die("Cannot open '$ARGV[0]': $!"); }
+
+# Always output to STDOUT
+crypt_file($fh, *STDOUT, CRYPT_MODE_DECRYPT);
