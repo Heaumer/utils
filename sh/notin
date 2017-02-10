@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+
+# For two input files a and b, output all lines of a which are not in b.
+# 
+# This is far more efficient than going the "dummy" O(n*n) way.
+#
+# There's a GNU command to perform similar operation (and more complex stuff).
+
+use strict;
+use warnings;
+
+use Getopt::Long;
+
+die("Usage: $0 <afile> <bfile>") if (scalar(@ARGV) < 2);
+my ($afn, $bfn) = @ARGV;
+
+open(my $afh, "<", $afn) or die("Cannot read '$afn': $!");
+open(my $bfh, "<", $bfn) or die("Cannot read '$bfn': $!");
+
+my %blines = map { $_ => 1 } <$bfh>;
+
+foreach my $aline (<$afh>) {
+    print "$aline" if (!exists($blines{$aline}));
+}
