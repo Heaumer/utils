@@ -28,7 +28,11 @@ int nspace =  1;
 int maxcol = Maxcol;
 
 /* Should we keep indentation? */
-int keepindent = 0;
+int keepindent = 1;
+
+/* Should we avoid considering spaces between quotes */
+/* TODO */
+int skipquotes = 0;
 
 /* strlen() skipping utf8 continuation prefix */
 int
@@ -36,7 +40,7 @@ wordlen(char *w)
 {
     int n;
 
-    for (n = 0;*w != '\0'; w++) {
+    for (n = 0; *w != '\0'; w++) {
         /*
          * 0xC0 : 1100 0000
          * 0x80 : 1000 0000 (10xx xxxx is continuation prefix)
@@ -140,7 +144,7 @@ main(int argc, char *argv[])
                 return help(argv[0], 1);
             }
         } else if (strcmp(argv[i], "-k") == 0)
-            keepindent = 1;
+            keepindent = 0;
         else if (strcmp(argv[i], "-h") == 0)
             return help(argv[0], 0);
         else {
