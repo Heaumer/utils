@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Ensure number is in the right format for bc(1)
+x=`echo $* | sed 's/^0x//' | tr '[a-z]' '[A-Z]'`
+
+# Convert
+cat <<EOF | bc
+ibase=16
+$x
+EOF

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Convert
+cat <<EOF | bc | sed 's/^/0x/'
+obase=16
+$*
+EOF
