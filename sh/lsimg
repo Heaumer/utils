@@ -1,0 +1,88 @@
+#!/bin/sh
+
+# Quickly script to display images thumbnails on a web page for a given
+# directory.
+#
+# For when you have hundreds of images, and no file browser with image
+# thumbnails.
+#
+# TODO:
+#   - Use a CSS grid to remove the need for bootstrap
+#     (https://www.w3schools.com/css/css_grid.asp);
+#     current generated HTML needs a internet connection to
+#     be usable.
+#   - Manage last images when not % 3
+#   - Vertical images are displayed vertical, but this creates
+#     empty spaces
+#   - Nice image preview on click instead of <a>
+
+set -e
+
+# Working directory
+d=$1
+[ -z "$d" ] && d=.
+
+# Image extensions (Perl RE bits)
+exts="png|PNG|jpg|JPG|jpeg|JPEG"
+
+# Thumbnails are 10% of original
+sz=10%
+
+# Thumbnails directory
+t=/tmp/thumbs
+
+mkdir -p $t
+
+# Sanity check
+if ! which convert; then
+    echo "install image magick first (need convert(1)" >&2
+    exit 0
+fi
+
+# HTML header
+cat <<EOF
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+            crossorigin="anonymous">
+
+        <style> div[class^="col-"] img { width: 100%; } </style>
+        <style> div[class^="col-"] { padding-bottom: 30; } </style>
+    </head>
+    <body>
+        <div class="container">
+EOF
+
+# List images three at a time (if not %3 == 0, last image / two images
+# will be on single rows; minor)
+ls $d | grep -E ".($exts)$" | sed 'N;N;s/\n/ /g' | while read x; do
+    set $x
+    cat <<EOF
+            <div class="row">
+EOF
+    for y in $x; do
+        # Resize to given size; automatically rotate
+        convert $d/$y -resize $sz -auto-orient $t/$y
+        cat <<EOF
+                <div class="col-md-4">
+                    <a href="$d/$y">
+                        <img src="$t/$y" alt="$d/$y">
+                    </a>
+                </div>
+EOF
+    done
+    cat <<EOF
+            </div>
+EOF
+done
+
+# HTML footer
+cat <<EOF
+        </div>
+    </body>
+</html>
+EOF

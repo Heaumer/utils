@@ -189,3 +189,6 @@ Indent xml files (xslt).
 Import (imagemagick) an image, upload it an open a firefox
 on the given URL.
 
+### lsimg
+Crude way to visually list images of a directory (generate HTML
+page and clickable thumbnails)
